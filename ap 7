@@ -1,0 +1,70 @@
+class Solution {
+ public:
+  int uniquePaths(int m, int n) {
+    // dp[i][j] := the number of unique paths from (0, 0) to (i, j)
+    vector<vector<int>> dp(m, vector<int>(n, 1));
+
+    for (int i = 1; i < m; ++i)
+      for (int j = 1; j < n; ++j)
+        dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+
+    return dp[m - 1][n - 1];
+  }
+};
+
+
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int curSum = 0 , maxSum = INT_MIN;
+
+        for(int val: nums){
+            curSum = curSum + val;
+            maxSum = max(curSum,maxSum);
+
+            if(curSum<0){
+                curSum = 0;
+            }
+        }
+        return maxSum;
+    }
+};
+
+
+class Solution {
+public:
+    int climbStairs(int n) {
+        if (n <= 2) return n;
+    
+    int a = 1, b = 2;
+    for (int i = 3; i <= n; i++) {
+        int temp = a + b;
+        a = b;
+        b = temp;
+    }
+    return b;
+    }
+};
+
+
+
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        if (nums.empty()) return 0;
+        
+        vector<int> dp(nums.size(), 1); // dp[i] represents the LIS ending at index i
+        int maxLength = 1;
+        
+        for (int i = 1; i < nums.size(); ++i) {
+            for (int j = 0; j < i; ++j) {
+                if (nums[i] > nums[j]) {
+                    dp[i] = max(dp[i], dp[j] + 1);
+                }
+            }
+            maxLength = max(maxLength, dp[i]);
+        }
+        
+        return maxLength;
+    }
+};
